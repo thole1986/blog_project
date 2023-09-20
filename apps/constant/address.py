@@ -1,0 +1,11 @@
+from flask_babel import lazy_gettext as _l
+
+HOME_ADDRESS_TYPE = 1
+HOME_ADDRESS_NAME = _l('Nhà riêng / Chung cư')
+COMPANY_ADDRESS_TYPE = 2
+COMPANY_ADDRESS_NAME = _l('Cơ quan / Công ty')
+
+ADDRESS_TYPE_CHOICES = (
+    (HOME_ADDRESS_TYPE, HOME_ADDRESS_NAME),
+    (COMPANY_ADDRESS_TYPE, COMPANY_ADDRESS_NAME),
+)

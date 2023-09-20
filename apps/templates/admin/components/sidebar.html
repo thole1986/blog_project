@@ -1,0 +1,35 @@
+<div class="main-sidebar">
+    <aside id="sidebar-wrapper">
+        <div class="sidebar-brand">
+            <a href="/admin">IMS Admin</a>
+        </div>
+        <div class="sidebar-brand sidebar-brand-sm">
+            <a href="/admin">IMS Admin</a>
+        </div>
+        <ul class="sidebar-menu">
+            <li class="nav-item">
+                <a href="{{ url_for('admin.admin_dashboard') }}" class="nav-link"><i class="fas fa-fire"></i><span>Dashboard</span></a>
+            </li>
+            {% for menu in menus %}
+                {% if user|check_menus(menu) == True %}
+                    <li class="nav-item dropdown">
+                        <a href="#" class="nav-link has-dropdown"><i class="{{ menu.icon }}"></i><span>{{ menu.name }}</span></a>
+                        {% if menu.child_menus and menu.child_menus|length > 0 %}
+                            <ul class="dropdown-menu">
+                                {% for child_menu in menu.child_menus %}
+                                    <li {% if request.endpoint == child_menu.endpoint or request.endpoint in child_menu.related_endpoints %}class="active"{% endif %}>
+                                        {% if child_menu.endpoint != "#" %}
+                                            <a class="nav-link" href="{{ url_for(child_menu.endpoint) }}">{{ child_menu.name }}</a>
+                                        {% else %}
+                                            <a class="nav-link" href="#">{{ child_menu.name }}</a>
+                                        {% endif %}
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
+                    </li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+    </aside>
+</div>

@@ -1,0 +1,66 @@
+{% extends "admin/auth/_base_auth.html" %} {% from
+"_partial-helpers/_formhelpers.html" import render_flash_message %} {% block
+title %}
+<title>Đăng nhập - DEMO APP</title>
+{% endblock %} {% block content %}
+<section class="section">
+  <div class="d-flex flex-wrap align-items-stretch">
+    <div
+      class="col-lg-4 col-md-6 col-12 order-lg-1 min-vh-100 order-2 bg-white"
+    >
+      <div class="p-4 m-3">
+        <div class="text-center">
+          <img
+            src="{{ url_for('static', filename='images/logo_sawaco_64.png') }}"
+            alt="logo"
+            class="shadow-light rounded-circle mb-4 mt-2"
+          />
+          <h4 class="text-dark font-weight-normal mb-3">
+            Xin chào đến với <br /><br /><span
+              class="font-weight-bold text-info"
+              >DEMO APP Services</span
+            >
+          </h4>
+        </div>
+        {% from "_partial-helpers/_formhelpers.html" import
+        render_flash_message, render_field with context %} {{
+        render_flash_message() }}
+        <form method="POST" action="{{ url_for('user.login') }}" role="form">
+          <input
+            type="hidden"
+            name="next"
+            value="{{ request.args.get('next', '') }}"
+          />
+          {{ form.hidden_tag() }} {{ render_field(form.email,
+          class='form-control') }} {{ render_field(form.password,
+          class='form-control') }}
+          <div class="form-group">
+            <button
+              type="submit"
+              class="btn btn-info btn-lg btn-icon icon-right"
+              tabindex="4"
+            >
+              Đăng nhập
+            </button>
+          </div>
+        </form>
+        <div class="text-center mt-5 text-small">
+          Copyright &copy; DEMO APP Services - 2022
+        </div>
+      </div>
+    </div>
+    <div
+      class="col-lg-8 col-12 order-lg-2 order-1 min-vh-100 background-walk-y position-relative overlay-gradient-bottom"
+      data-background="{{ url_for('static', filename='images/login-bg.jpg') }}"
+    >
+      <div class="absolute-bottom-left index-2">
+        <div class="text-light p-5 pb-2">
+          <div class="mb-5 pb-3">
+            <h1 class="mb-2 display-4 font-weight-bold">DEMO APP</h1>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

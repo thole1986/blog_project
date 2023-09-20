@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="vn">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no"
+      name="viewport"
+    />
+    <meta name="author" content="Thọ Lê" />
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="{{ url_for('static', filename='st_front/assets/favicon.ico') }}"
+    />
+    {% block title %}
+    <title>IMS Admin</title>
+    {% endblock %}
+
+    <!-- General CSS Files -->
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='vendors/bootstrap/css/bootstrap.min.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='vendors/fontawesome/css/all.min.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='vendors/summernote/summernote-bs4.min.css') }}"
+    />
+
+    <!-- Template CSS -->
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='st_back/assets/css/style.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='st_back/assets/css/custom.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='st_back/assets/css/components.css') }}"
+    />
+  </head>
+
+  <body>
+    <div id="app">
+      <div class="main-wrapper">
+        <!-- Navbar -->
+        {% include 'admin/components/navbar.html' %}
+
+        <!-- Sidebar -->
+        {% include 'admin/components/sidebar.html' %}
+
+        <!-- Main Content -->
+        <div class="main-content">{% block content %}{% endblock %}</div>
+
+        <!-- Footer -->
+        {% include 'admin/components/footer.html' %}
+      </div>
+    </div>
+
+    <!-- General JS Scripts -->
+    <script src="{{ url_for('static', filename='vendors/jquery/jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='vendors/bootstrap/js/bootstrap.bundle.js') }}"></script>
+    <script src="{{ url_for('static', filename='vendors/nicescroll/jquery.nicescroll.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='vendors/moment/moment.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='st_back/assets/js/stisla.js') }}"></script>
+    <script src="{{ url_for('static', filename='vendors/chart/Chart.bundle.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='vendors/summernote/summernote-bs4.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='vendors/chocolat/jquery.chocolat.min.js') }}"></script>
+
+    <!-- Template JS File -->
+    <script src="{{ url_for('static', filename='st_back/assets/js/scripts.js') }}"></script>
+    <script src="{{ url_for('static', filename='st_back/assets/js/custom.js') }}"></script>
+    <script src="{{ url_for('static', filename='common_js/utils.js') }}"></script>
+    <script>
+      $(document).ready(function () {
+        $(".sidebar-menu li.nav-item").removeClass("active");
+        if ($(".dropdown-menu li").hasClass("active")) {
+          $(".dropdown-menu li.active")
+            .parents("ul.dropdown-menu")
+            .css("display", "block");
+          $(".dropdown-menu li.active").parents("li").addClass("active");
+        } else {
+          $(".sidebar-menu li.nav-item:first-child").addClass("active");
+        }
+        $('[data-toggle="tooltip"]').tooltip();
+      });
+    </script>
+    {% block script %}{% endblock %}
+  </body>
+</html>

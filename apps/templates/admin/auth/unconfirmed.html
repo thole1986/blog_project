@@ -1,0 +1,30 @@
+{% extends "admin/auth/_base_auth.html" %} {% block title %}
+<title>Xác thực tài khoản</title>
+{% endblock %} {% block content %}
+<section class="section">
+  <div class="container mt-5">
+    <div class="row">
+      <div
+        class="col-12 col-sm-10 offset-sm-1 col-md-8 offset-md-2 col-lg-8 offset-lg-2 col-xl-8 offset-xl-2"
+      >
+        <div class="login-brand">
+          <img
+            src="{{ url_for('static', filename='images/logo_sawaco_64.png') }}"
+            alt="logo"
+            class="shadow-light rounded-circle"
+          />
+        </div>
+        <div class="card card-primary">
+          <div class="card-header justify-content-center">
+            <h4>Tải khoản của bạn chưa được xác thực!</h4>
+          </div>
+          <div class="card-body text-center">
+            <p>Vui lòng liên hệ <b>Admin</b> để kích hoạt tài khoản của bạn</p>
+          </div>
+        </div>
+        <div class="simple-footer">Copyright &copy;</div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

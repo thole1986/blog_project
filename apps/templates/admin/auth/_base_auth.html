@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.png') }}"/>
+    {% block title %}{% endblock %}
+    <!-- General CSS Files -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='vendors/bootstrap/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='vendors/fontawesome/css/all.min.css') }}">
+
+    {#  <!-- CSS Libraries -->#}
+    {#  <link rel="stylesheet" href="../node_modules/bootstrap-social/bootstrap-social.css">#}
+    <!-- Template CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='st_back/assets/css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='st_back/assets/css/components.css') }}">
+    {% block head %}{% endblock %}
+</head>
+
+<body>
+<div id="app">
+    {% block content %}{% endblock %}
+</div>
+
+<!-- General JS Scripts -->
+<script src="{{ url_for('static', filename='vendors/jquery/jquery.min.js') }}"></script>
+<script src="{{ url_for('static', filename='vendors/bootstrap/js/bootstrap.bundle.js') }}"></script>
+<script src="{{ url_for('static', filename='vendors/nicescroll/jquery.nicescroll.min.js') }}"></script>
+<script src="{{ url_for('static', filename='vendors/moment/moment.min.js') }}"></script>
+<script src="{{ url_for('static', filename='st_back/assets/js/stisla.js') }}"></script>
+<!-- JS Libraies -->
+
+<!-- Template JS File -->
+<script src="{{ url_for('static', filename='st_back/assets/js/scripts.js') }}"></script>
+<script src="{{ url_for('static', filename='st_back/assets/js/custom.js') }}"></script>
+
+{% block script %}{% endblock %}
+<!-- Page Specific JS File -->
+</body>
+</html>

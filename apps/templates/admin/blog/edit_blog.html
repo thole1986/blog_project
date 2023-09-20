@@ -1,0 +1,91 @@
+{% extends 'admin/_base.html' %}
+{% from "_partial-helpers/_formhelpers.html" import flash_message, render_field, render_field_checkbox %}
+
+{% block content %}
+  <section class="section">
+    <div class="section-header">
+      <h1 class="text-capitalize">Bài viết</h1>
+      <div class="section-header-breadcrumb">
+        <div class="breadcrumb-item active text-capitalize"><a href="{{ url_for('.admin_dashboard') }}">Dashboard</a></div>
+        <div class="breadcrumb-item text-capitalize"><a href="{{ url_for('.manage_blog') }}">Quản Lý Bài Viết</a></div>
+        <div class="breadcrumb-item text-capitalize">Cập nhật bài viết</div>
+      </div>
+    </div>
+    <div class="section-body">
+      {{ flash_message() }}
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-header justify-content-between">
+              <h4 class="text-capitalize">Cập nhật bài viết</h4>
+              <div class="btn-group">
+                <button type="button" class="btn btn-danger note-btn">{{ 'fdsf' }}</button>
+                <button type="button" class="btn btn-danger note-btn dropdown-toggle dropdown-toggle-split" data-toggle="dropdown">
+                  <span class="sr-only">Toggle Dropdown</span>
+                </button>
+                <div class="dropdown-menu dropdown-menu-right">
+                  {% for status in [] %}
+                    <a class="dropdown-item" href="javascript:void(0)" data-value="{{ status.status_value }}">{{ status.status_name }}</a>
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <form class="form-row"
+                    action="{{ url_for('.edit_blog', blog_id=blog.id) }}"
+                    enctype="multipart/form-data" method="post" role="form" autocomplete="off">
+                {{ form.hidden_tag() }}
+                {% if blog.image and blog.image.id %}
+                  <input type="hidden" name="image" value="{{ blog.image.id }}">
+                {% endif %}
+                <div class="col-12 col-md-5 col-lg-4 mb-4">
+                  {% if blog.image and blog.image.id %}
+                    <div id="image-preview" class="image-preview m-auto"
+                         style="background-image: url({{ blog.show_image }}); background-size: cover; background-position: center center;">
+                      {{ render_field(form.image, class='form-control', id='image') }}
+                    </div>
+                  {% else %}
+                    <div id="image-preview" class="image-preview m-auto"
+                         style="background-image: none; background-size: cover; background-position: center center;">
+                      {{ render_field(form.image, class='form-control', id='image') }}
+                    </div>
+                  {% endif %}
+                </div>
+                <div class="col-12 col-md-7 col-lg-8">
+                  {{ render_field(form.name, class='form-control') }}
+                  {{ render_field(form.category, class='form-control') }}
+                  {{ render_field(form.link_video, class='form-control') }}
+                </div>
+                <div class="col-12">
+                  {{ render_field(form.excerpt, class='form-control') }}
+                  {{ render_field(form.content, class='form-control') }}
+                </div>
+                {% if user | check_role(['Admin']) %}
+                  <div class="col-12">
+                    <div class="form-group">
+                      {{ render_field_checkbox(form.published, class='form-check-input') }}
+                    </div>
+                  </div>
+                {% endif %}
+                <div class="col-12">
+                  <div class="buttons">
+                    <button type="submit" class="btn btn-primary btn-lg text-uppercase">Lưu</button>
+                    <a href="{{ url_for('.manage_blog') }}" class="btn btn-danger btn-lg text-uppercase">Hủy</a>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endblock %}
+
+{% block script %}
+  <script src="{{ url_for('static', filename='vendors/jquery_upload_preview/jquery.uploadPreview.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='st_back/js/image.js') }}"></script>
+  <script type="text/javascript">
+    renderSummernote("#content", 400);
+  </script>
+{% endblock %}

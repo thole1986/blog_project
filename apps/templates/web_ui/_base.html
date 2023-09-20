@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="author" content="Thọ Lê" />
+    <meta
+      name="keywords"
+      content="bai viet, blog, lap trinh, tin tuc, tan man"
+    />
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    {% block meta %}{% endblock %} {% block title %}
+    <title>DEMO Blog</title>
+    {% endblock %}
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="{{ url_for('static', filename='st_front/assets/favicon.ico') }}"
+    />
+    <!-- Google fonts-->
+    <link
+      href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <!-- Font Awesome icons (free version)-->
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='vendors/fontawesome/css/all.min.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='st_front/css/bootstrap/bootstrap.min.css') }}"
+    />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link
+      href="{{ url_for('static', filename='st_front/css/styles.css') }}"
+      rel="stylesheet"
+    />
+    {% block head %}{% endblock %}
+  </head>
+  <body>
+    {% include 'web_ui/components/navbar.html' %} {% block header %} {% include
+    'web_ui/components/header.html' %} {% endblock %} {% block content %}{%
+    endblock %} {% include 'web_ui/components/footer.html' %}
+
+    <script src="{{ url_for('static', filename='vendors/jquery/jquery.min.js') }}"></script>
+    <!-- Bootstrap core JS-->
+    <script src="{{ url_for('static', filename='st_front/js/bootstrap/bootstrap.bundle.min.js') }}"></script>
+    <!-- Core theme JS-->
+    <script src="{{ url_for('static', filename='st_front/js/scripts.js') }}"></script>
+    {% block script %}{% endblock %}
+  </body>
+</html>

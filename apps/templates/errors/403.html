@@ -1,0 +1,20 @@
+{% extends "/errors/_base_error.html" %} {% block title %}
+<title>403 Page</title>
+{% endblock %} {% block content %}
+<section class="section">
+  <div class="container mt-5">
+    <div class="page-error">
+      <div class="page-inner">
+        <h1>403</h1>
+        <div class="page-description">
+          Tài khoản không có quyền truy cập trang này!
+        </div>
+        <div class="mt-3">
+          <a href="{{ url_for('main.index')}}">Trở lại Trang Chủ</a>
+        </div>
+      </div>
+    </div>
+    <div class="simple-footer mt-5">Copyright &copy; 2023</div>
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="vn">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no"
+      name="viewport"
+    />
+    {% block title %}
+    <title>DEMO APP</title>
+    {% endblock %}
+
+    <!-- General CSS Files -->
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='vendors/bootstrap/css/bootstrap.min.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='vendors/fontawesome/css/all.min.css') }}"
+    />
+    <!-- Template CSS -->
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='st_back/assets/css/style.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='st_back/assets/css/components.css') }}"
+    />
+    <style>
+      .main-content {
+        padding-left: 0;
+        padding-right: 0;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="app">
+      <div class="main-wrapper">
+        <!-- Main Content -->
+        <div class="main-content">{% block content %}{% endblock %}</div>
+      </div>
+    </div>
+
+    <!-- General JS Scripts -->
+    <script src="{{ url_for('static', filename='vendors/jquery/jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='vendors/bootstrap/js/bootstrap.bundle.js') }}"></script>
+    <script src="{{ url_for('static', filename='vendors/nicescroll/jquery.nicescroll.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='vendors/moment/moment.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='st_back/assets/js/stisla.js') }}"></script>
+
+    <!-- Template JS File -->
+    <script src="{{ url_for('static', filename='st_back/assets/js/scripts.js') }}"></script>
+    <script src="{{ url_for('static', filename='st_back/assets/js/custom.js') }}"></script>
+
+    <!-- Page Specific JS File -->
+
+    {% block script %}{% endblock %}
+  </body>
+</html>

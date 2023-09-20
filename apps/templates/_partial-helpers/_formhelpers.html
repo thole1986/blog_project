@@ -1,0 +1,137 @@
+{% macro render_field(field, note='') %}
+    <div class="form-group">
+        {% if field.label %}
+            <dt>
+                {% if field.flags.required %}
+                    {{ field.label(class_='required form-label') }}
+                {% else %}
+                    {{ field.label(class_='form-label') }}
+                {% endif %}
+            </dt>
+        {% endif %}
+        {{ field(**kwargs)|safe }}
+        {% if field.errors %}
+            <ul class="navbar-nav text-danger">
+                {% for error in field.errors %}
+                    <li><small>{{ error }}</small></li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        {% if note %}
+            <small class="form-text text-muted">
+                <em>{{ note }}</em>
+            </small>
+        {% endif %}
+    </div>
+{% endmacro %}
+
+{% macro render_field_checkbox(field, note='') %}
+    <div class="form-check">
+        {{ field(**kwargs)|safe }}
+        {% if field.label %}
+            <dt>
+                {% if field.flags.required %}
+                    {{ field.label(class_='required') }}
+                {% else %}
+                    {{ field.label }}
+                {% endif %}
+            </dt>
+        {% endif %}
+        {% if field.errors %}
+            <ul class="navbar-nav text-danger">
+                {% for error in field.errors %}
+                    <li><small>{{ error }}</small></li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        {% if note %}
+            <small class="form-text text-muted">
+                <em>{{ note }}</em>
+            </small>
+        {% endif %}
+      </div>
+{% endmacro %}
+
+{% macro render_no_label_field(field, form_group=false) %}
+    {% if form_group == true %}
+        <div class="form-group">
+           {{ field(**kwargs)|safe }}
+            {% if field.errors %}
+                <ul class="navbar-nav text-danger">
+                    {% for error in field.errors %}
+                        <li><small>{{ error }}</small></li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+    {% else %}
+        {{ field(**kwargs)|safe }}
+        {% if field.errors %}
+            <ul class="navbar-nav text-danger">
+                {% for error in field.errors %}
+                    <li><small>{{ error }}</small></li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endif %}
+{% endmacro %}
+
+{% macro render_line_field(field) %}
+    <div class="form-group">
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text f700">
+                    {% if field.flags.required %}
+                        {{ field.label }} <sup>*</sup>
+                    {% else %}
+                        {{ field.label }}
+                    {% endif %}
+                </span>
+            </div>
+            {{ field(**kwargs)|safe }}
+        </div>
+        {% if field.errors %}
+            <ul class="navbar-nav text-danger">
+                {% for error in field.errors %}
+                    <li><small>{{ error }}</small></li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
+{% endmacro %}
+
+{% macro render_flash_message() %}
+    <!-- Display flashed messages for front pages with bootstrap 5 -->
+    {% with msgs = get_flashed_messages(with_categories=true) %}
+        {% if msgs %}
+            {% for category, msg in msgs %}
+                <div class="alert alert-{{ category }} alert-dismissible show fade">
+                  <div class="alert-body">
+                    <button class="close" data-dismiss="alert">
+                      <span>×</span>
+                    </button>
+                      {{ msg }}
+                  </div>
+                </div>
+            {% endfor -%}
+        {% endif %}
+    {% endwith %}
+{% endmacro %}
+
+{% macro flash_message() %}
+    <!-- Display flashed messages for whole admin pages because they are used bootstrap 4 -->
+    {% with msgs = get_flashed_messages(with_categories=true) %}
+        {% if msgs %}
+            {% for category, msg in msgs %}
+                <div id="alert__messages" class="text-center text-white">
+                    <div class="alert round bg-{{ category }} alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        {{ msg }}
+                    </div>
+                </div>
+            {% endfor -%}
+        {% endif %}
+    {% endwith %}
+{% endmacro %}

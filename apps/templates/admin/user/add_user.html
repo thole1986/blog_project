@@ -1,0 +1,42 @@
+{% extends 'admin/_base.html' %}
+{% from "_partial-helpers/_formhelpers.html" import flash_message, render_field %}
+
+{% block content %}
+    <section class="section">
+        <div class="section-header">
+            <h1 class="text-capitalize">Người dùng</h1>
+            <div class="section-header-breadcrumb">
+                <div class="breadcrumb-item active text-capitalize"><a href="{{ url_for('.admin_dashboard') }}">Dashboard</a></div>
+                <div class="breadcrumb-item text-capitalize"><a href="{{ url_for('.manage_user') }}">Quản Lý Người Dùng</a></div>
+                <div class="breadcrumb-item text-capitalize">thêm người dùng</div>
+            </div>
+        </div>
+        <div class="section-body">
+            <div class="row">
+                <div class="col-12 col-md-6 m-auto">
+                    {{ flash_message() }}
+                </div>
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header justify-content-between">
+                            <h4 class="text-capitalize">Thêm người dùng</h4>
+                        </div>
+                        <div class="card-body">
+                            <form action="{{ url_for('.add_user') }}" method="post" role="form" autocomplete="off">
+                                {{ form.hidden_tag() }}
+                                {{ render_field(form.name, class='form-control') }}
+                                {{ render_field(form.email, class='form-control') }}
+                                {{ render_field(form.phone, class='form-control') }}
+                                {{ render_field(form.roles, class='form-control') }}
+                                <div class="buttons">
+                                    <button type="submit" class="btn btn-primary btn-lg text-uppercase">Lưu</button>
+                                    <a href="{{ url_for('.manage_user')}}" class="btn btn-danger btn-lg text-uppercase">Hủy</a>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

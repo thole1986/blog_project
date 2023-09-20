@@ -1,0 +1,52 @@
+{% extends "admin/auth/_base_auth.html" %} {% from
+"_partial-helpers/_formhelpers.html" import render_line_field, render_field %}
+{% block title %}
+<title>Đăng ký</title>
+{% endblock %} {% block content %}
+<section class="section">
+  <div class="container mt-5">
+    <div class="row">
+      <div
+        class="col-12 col-sm-10 offset-sm-1 col-md-8 offset-md-2 col-lg-8 offset-lg-2 col-xl-8 offset-xl-2"
+      >
+        <div class="login-brand">
+          <img
+            src="{{ url_for('static', filename='images/logo_sawaco_64.png') }}"
+            alt="logo"
+            class="shadow-light rounded-circle"
+          />
+        </div>
+        <div class="card card-primary">
+          <div class="card-header">
+            <h4>Đăng ký</h4>
+          </div>
+          <div class="card-body">
+            <form
+              method="POST"
+              action="{{ url_for('user.signup') }}"
+              role="form"
+            >
+              {{ form.hidden_tag() }} {{ render_field(form.name,
+              class='form-control') }} {{ render_field(form.email,
+              class='form-control') }} {{ render_field(form.company,
+              class='form-control') }} {{ render_field(form.password,
+              class='form-control') }} {{ render_field(form.password2,
+              class='form-control') }}
+              <div class="form-group">
+                <button type="submit" class="btn btn-primary btn-lg btn-block">
+                  Đăng ký
+                </button>
+              </div>
+            </form>
+            <div class="mt-3">
+              Đã có tài khoản?
+              <a href="{{ url_for('user.login') }}"> Đăng nhập</a>
+            </div>
+          </div>
+        </div>
+        <div class="simple-footer">Copyright &copy; 2022</div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

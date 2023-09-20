@@ -1,0 +1,90 @@
+{% extends 'admin/_base.html' %}
+{% from "_partial-helpers/pagination.html" import render_pagination with context %}
+{% from "_partial-helpers/_formhelpers.html" import flash_message %}
+
+{% block content %}
+    <section class="section">
+        <div class="section-header">
+            <h1 class="text-capitalize">Danh mục</h1>
+            {% if user | check_role(['Admin']) %}
+            <div class="section-header-button">
+                <a href="{{ url_for('.add_category')}}" class="btn btn-primary text-uppercase"><i class="fas fa-plus"></i>
+                    Tạo mới</a>
+            </div>
+            {% endif %}
+            <div class="section-header-breadcrumb">
+                <div class="breadcrumb-item active text-capitalize"><a
+                        href="{{ url_for('.admin_dashboard') }}">Dashboard</a></div>
+                <div class="breadcrumb-item text-capitalize">Danh mục bài viết</div>
+            </div>
+        </div>
+        <div class="section-body">
+            {{ flash_message() }}
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header justify-content-between">
+                            <h4>Danh sách danh mục</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="row justify-content-end">
+                              <div class="col-12 col-md-6">
+                                  <form method="get" role="form" autocomplete="off">
+                                    <div class="input-group">
+                                      <input type="text" class="form-control" name="search" value="{{ params.search }}" placeholder="Tên danh mục">
+                                      <div class="input-group-append">
+                                        <button class="btn btn-success" type="submit"><i class="fas fa-search"></i></button>
+                                      </div>
+                                    </div>
+                                  </form>
+                              </div>
+                            </div>
+                            <div class="clearfix mb-3"></div>
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
+                                    <tr>
+                                        <th>Tên danh mục</th>
+                                        <th>Người tạo</th>
+                                        <th>Cập nhật lúc</th>
+                                        <th class="text-right">Hành động</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for category in categories %}
+                                        <tr>
+                                            <td>{{ category.name }}</td>
+                                            <td>
+                                                {{ category.created_by.full_name }}
+                                            </td>
+                                            <td>
+                                                {% if category.updated_at %}
+                                                    {{ category.updated_at.strftime('%H:%m %d/%m/%Y') }}
+                                                {% else %}
+                                                    {{ category.created_at.strftime('%H:%m %d/%m/%Y') }}
+                                                {% endif %}
+                                            </td>
+                                            <td class="text-right">
+                                                {% if user | check_role(['Admin']) %}
+                                                    <a href="{{ url_for('.edit_category', category_id=category.id) }}" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i> Cập nhật</a>
+                                                {% endif %}
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        {% if categories %}
+                            <div class="card-footer">
+                                <div class="float-right">
+                                    {{ render_pagination(pagination, 'admin.manage_category', **params) }}
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

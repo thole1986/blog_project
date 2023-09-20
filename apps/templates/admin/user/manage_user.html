@@ -1,0 +1,90 @@
+{% extends 'admin/_base.html' %}
+{% from "_partial-helpers/pagination.html" import render_pagination with context %}
+{% from "_partial-helpers/_formhelpers.html" import flash_message %}
+
+{% block content %}
+    <section class="section">
+        <div class="section-header">
+            <h1 class="text-capitalize">người dùng</h1>
+            {% if user|check_role(['Admin']) %}
+                <div class="section-header-button">
+                    <a href="{{ url_for('.add_user')}}" class="btn btn-primary text-uppercase"><i class="fas fa-plus"></i>
+                        Tạo mới</a>
+                </div>
+            {% endif %}
+            <div class="section-header-breadcrumb">
+                <div class="breadcrumb-item active text-capitalize"><a
+                        href="{{ url_for('.admin_dashboard') }}">Dashboard</a></div>
+                <div class="breadcrumb-item text-capitalize">Quản Lý người dùng</div>
+            </div>
+        </div>
+        <div class="section-body">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4>Danh sách</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="float-right">
+                                <form method="get" role="form" autocomplete="off">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" name="search" value="{{ params.search }}" placeholder="Tên, email">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-success" type="submit"><i class="fas fa-search"></i></button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="clearfix mb-3"></div>
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
+                                    <tr>
+                                        <th>Tên</th>
+                                        <th>Email</th>
+                                        <th>Trạng thái</th>
+                                        <th>Cập nhật lúc</th>
+                                        <th class="text-right">Hành động</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for u in users %}
+                                        <tr>
+                                            <td>{{ u.full_name }}</td>
+                                            <td>{{ u.email }}</td>
+                                            <td>
+                                                <div class="badge badge-{% if u.status == 1 %}success{% else %}danger{% endif %}">{{ u.status_name }}</div>
+                                            </td>
+                                            <td>
+                                                {% if u.updated_at %}
+                                                    {{ u.updated_at.strftime('%H:%m %d/%m/%Y') }}
+                                                {% else %}
+                                                    {{ u.created_at.strftime('%H:%m %d/%m/%Y') }}
+                                                {% endif %}
+                                            </td>
+                                            <td class="text-right">
+                                                {% if user | check_role(['Admin']) %}
+                                                    <a href="{{ url_for('.edit_user', user_id=u.id) }}" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i></a>
+                                                {% endif %}
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+
+                                </table>
+                            </div>
+                        </div>
+                        {% if users %}
+                            <div class="card-footer">
+                                <div class="float-right">
+                                    {{ render_pagination(pagination, 'admin.manage_user', **params) }}
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

@@ -1,0 +1,71 @@
+{% extends 'web_ui/_base.html' %} {% block content %}
+<!-- Main Content-->
+<div class="container px-4">
+  <div class="row gx-4 gx-lg-5 justify-content-center">
+    <div class="col-12 col-md-8">
+      <!-- Post preview-->
+      {% for blog in blogs %}
+      <div class="post-preview">
+        <a href="{{ url_for('blog.blog_detail', slug=blog.slug) }}">
+          <h2 class="post-title">{{ blog.name }}</h2>
+          <h5 class="post-subtitle">{{ blog.excerpt if blog.excerpt }}</h5>
+        </a>
+        <p class="post-meta">
+          Đăng bởi
+          <a href="javascript:void(0);">{{ blog.published_by.full_name }}</a>
+          {{ blog.published_at.strftime('%d-%m-%Y') }}
+        </p>
+      </div>
+      <!-- Divider-->
+      {% if not loop.last %}
+      <hr class="my-4" />
+      {% endif %} {% endfor %} {% if next_url and not prev_url %}
+      <div class="d-flex justify-content-end mb-4">
+        <a
+          class="btn btn-primary btn-sm text-uppercase"
+          href="{{ next_url or 'javascript:void(0);' }}"
+          >Trước đó &longrightarrow;</a
+        >
+      </div>
+      {% elif prev_url and not next_url %}
+      <div class="d-flex justify-content-start mb-4">
+        <a
+          class="btn btn-primary btn-sm text-uppercase"
+          href="{{ prev_url or 'javascript:void(0);' }}"
+          >&longleftarrow; Mới hơn</a
+        >
+      </div>
+      {% else %} {% if next_url and prev_url %}
+      <div class="d-flex justify-content-between mb-4">
+        <a
+          class="btn btn-primary btn-sm text-uppercase"
+          href="{{ prev_url or 'javascript:void(0);' }}"
+          >&longleftarrow; Mới hơn</a
+        >
+        <a
+          class="btn btn-primary btn-sm text-uppercase"
+          href="{{ next_url or 'javascript:void(0);' }}"
+          >Trước đó &longrightarrow;</a
+        >
+      </div>
+      {% endif %} {% endif %}
+    </div>
+    <div class="col-12 col-md-4">
+      <h4 class="text-primary mt-5">Danh mục</h4>
+      <ul class="list-group list-group-flush">
+        {% for category in categories %}
+        <li
+          class="list-group-item d-flex justify-content-between align-items-center"
+        >
+          <a href="javascript:void(0);">{{ category.name }}</a>
+          <span class="badge bg-primary rounded-pill"
+            >{{ category.total_blog }}</span
+          >
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+</div>
+<!-- Footer-->
+{% endblock %}
